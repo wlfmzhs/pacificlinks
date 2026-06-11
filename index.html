@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>퍼시픽링크스 코리아 | 프리미엄 골프 멤버십</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+  :root{
+    --navy:#0a1830;
+    --navy2:#0f2647;
+    --blue:#4f8fd6;
+    --blue-light:#8fc1f0;
+    --ink:#13202f;
+    --gray:#6b7785;
+    --bg:#f4f6f9;
+    --line:#e3e8ee;
+  }
+
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Noto Sans KR', sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  img{ max-width:100%; display:block; }
+  .container{ max-width:560px; margin:0 auto; padding:0 24px; }
+
+  a{ text-decoration:none; color:inherit; }
+  button{ font-family:inherit; cursor:pointer; border:none; }
+
+  /* ============ HEADER ============ */
+  .topbar{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(10,24,48,0.0);
+    transition:background .3s ease, box-shadow .3s ease, padding .3s ease;
+  }
+  .topbar.scrolled{
+    background:rgba(10,24,48,0.92);
+    backdrop-filter:blur(8px);
+    box-shadow:0 2px 18px rgba(0,0,0,0.15);
+    padding:10px 20px;
+  }
+  .topbar-logo{ height:30px; transition:height .3s ease; }
+  .topbar.scrolled .topbar-logo{ height:26px; }
+  .topbar-call{
+    display:flex; align-items:center; gap:6px;
+    background:var(--blue);
+    color:#fff; font-size:13px; font-weight:700;
+    padding:9px 16px; border-radius:30px;
+    box-shadow:0 4px 14px rgba(79,143,214,0.4);
+  }
+  .topbar-call svg{ width:14px; height:14px; fill:#fff; }
+
+  /* ============ HERO ============ */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; color:#fff;
+    background:
+      radial-gradient(circle at 50% 0%, rgba(79,143,214,0.35), transparent 55%),
+      linear-gradient(165deg, var(--navy) 0%, #061224 70%, #03070f 100%);
+    padding:100px 24px 60px;
+    position:relative; overflow:hidden;
+  }
+  .hero::before{
+    content:''; position:absolute; inset:0;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.25) 50%, transparent 51%),
+      radial-gradient(1px 1px at 80% 60%, rgba(255,255,255,0.18) 50%, transparent 51%),
+      radial-gradient(1px 1px at 60% 85%, rgba(255,255,255,0.15) 50%, transparent 51%),
+      radial-gradient(1px 1px at 35% 70%, rgba(255,255,255,0.12) 50%, transparent 51%);
+    pointer-events:none;
+  }
+  .hero-logo{ width:150px; margin:0 auto 36px; position:relative; z-index:1; }
+  .hero-eyebrow{
+    font-size:11px; letter-spacing:4px; text-transform:uppercase;
+    color:var(--blue-light); font-weight:700; margin-bottom:18px;
+    position:relative; z-index:1;
+  }
+  .hero h1{
+    font-size:38px; font-weight:900; line-height:1.35; letter-spacing:-1px;
+    margin-bottom:18px; position:relative; z-index:1;
+  }
+  .hero h1 span{ color:var(--blue-light); }
+  .hero p{
+    font-size:14px; color:rgba(255,255,255,0.6); font-weight:300;
+    margin-bottom:42px; position:relative; z-index:1;
+  }
+  .btn-primary{
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--blue); color:#fff;
+    font-size:16px; font-weight:800;
+    padding:18px 40px; border-radius:50px;
+    box-shadow:0 10px 30px rgba(79,143,214,0.45);
+    position:relative; z-index:1;
+    transition:transform .15s ease;
+  }
+  .btn-primary:active{ transform:scale(0.97); }
+  .btn-primary svg{ width:18px; height:18px; fill:#fff; }
+  .hero-scroll{
+    position:absolute; bottom:28px; left:50%; transform:translateX(-50%);
+    font-size:10px; letter-spacing:3px; color:rgba(255,255,255,0.4);
+    text-transform:uppercase; z-index:1;
+    animation:bounce 2.2s infinite;
+  }
+  @keyframes bounce{
+    0%,100%{ transform:translate(-50%,0); opacity:.4; }
+    50%{ transform:translate(-50%,6px); opacity:.9; }
+  }
+
+  /* ============ SECTION GENERIC ============ */
+  .section{ padding:72px 0; }
+  .section.dark{
+    background:linear-gradient(165deg, var(--navy2), var(--navy));
+    color:#fff;
+  }
+  .reveal{ opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  .eyebrow-tag{
+    display:inline-block; font-size:11px; font-weight:800; letter-spacing:3px;
+    color:var(--blue); text-transform:uppercase; margin-bottom:10px;
+  }
+  .section.dark .eyebrow-tag{ color:var(--blue-light); }
+  .section-title{
+    font-size:28px; font-weight:900; letter-spacing:-0.5px; margin-bottom:14px;
+    line-height:1.4;
+  }
+  .section-title b{ color:var(--blue); }
+  .section.dark .section-title b{ color:var(--blue-light); }
+  .section-desc{ font-size:14px; color:var(--gray); margin-bottom:36px; }
+  .section.dark .section-desc{ color:rgba(255,255,255,0.55); }
+
+  /* ============ STATS ============ */
+  .stats-grid{
+    display:flex; gap:10px; margin-bottom:36px;
+  }
+  .stat-card{
+    flex:1; text-align:center; padding:22px 8px;
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:14px;
+  }
+  .stat-num{ font-size:26px; font-weight:900; color:var(--blue-light); letter-spacing:-1px; }
+  .stat-label{ font-size:11px; color:rgba(255,255,255,0.55); margin-top:6px; letter-spacing:0.5px; }
+
+  .badge-row{ display:flex; flex-wrap:wrap; gap:8px; }
+  .badge{
+    font-size:12px; font-weight:700; color:#fff;
+    background:rgba(79,143,214,0.18);
+    border:1px solid rgba(79,143,214,0.4);
+    padding:8px 16px; border-radius:30px;
+  }
+
+  /* ============ MEMBERSHIP CARDS ============ */
+  .mem-card{
+    background:#fff; border:1px solid var(--line); border-radius:18px;
+    padding:26px 24px; margin-bottom:16px;
+    box-shadow:0 4px 20px rgba(10,24,48,0.04);
+  }
+  .mem-tag{
+    display:inline-block; font-size:10px; font-weight:800; letter-spacing:2px;
+    color:var(--blue); background:rgba(79,143,214,0.1);
+    padding:4px 10px; border-radius:6px; margin-bottom:12px; text-transform:uppercase;
+  }
+  .mem-title{ font-size:21px; font-weight:900; letter-spacing:-0.5px; margin-bottom:8px; }
+  .mem-desc{ font-size:13px; color:var(--gray); margin-bottom:18px; line-height:1.7; }
+  .mem-actions{ display:flex; gap:8px; }
+  .btn-outline{
+    flex:1; text-align:center; padding:13px; border-radius:10px;
+    border:1.5px solid var(--navy); font-size:13px; font-weight:700;
+    color:var(--navy); background:#fff; transition:background .15s ease;
+  }
+  .btn-outline:active{ background:var(--bg); }
+  .btn-fill{
+    flex:1; text-align:center; padding:13px; border-radius:10px;
+    background:var(--blue); color:#fff; font-size:13px; font-weight:700;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .btn-fill svg{ width:13px; height:13px; fill:#fff; }
+
+  /* ============ LIGHTBOX ============ */
+  .lightbox{
+    position:fixed; inset:0; background:rgba(5,12,24,0.92); z-index:1000;
+    display:none; align-items:center; justify-content:center; padding:20px;
+    backdrop-filter:blur(4px);
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox img{
+    max-width:100%; max-height:85vh; border-radius:10px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  .lightbox-close{
+    position:absolute; top:18px; right:20px;
+    width:42px; height:42px; border-radius:50%;
+    background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.2);
+    color:#fff; font-size:22px; font-weight:300;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .lightbox-hint{
+    position:absolute; bottom:24px; left:50%; transform:translateX(-50%);
+    color:rgba(255,255,255,0.5); font-size:11px; letter-spacing:1px;
+  }
+
+  /* ============ PROFILE ============ */
+  .profile-card{
+    background:linear-gradient(165deg, var(--navy2), var(--navy));
+    border-radius:22px; overflow:hidden; color:#fff;
+    box-shadow:0 20px 50px rgba(10,24,48,0.25);
+  }
+  .profile-img{ width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center top; }
+  .profile-body{ padding:28px 26px 30px; }
+  .profile-role{ font-size:12px; letter-spacing:2px; color:var(--blue-light); font-weight:700; margin-bottom:6px; text-transform:uppercase; }
+  .profile-name{ font-size:26px; font-weight:900; margin-bottom:14px; letter-spacing:-0.5px; }
+  .profile-desc{ font-size:13px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:26px; }
+  .profile-actions{ display:flex; flex-direction:column; gap:10px; }
+  .profile-call{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    background:var(--blue); color:#fff; font-size:17px; font-weight:800;
+    padding:18px; border-radius:14px;
+    box-shadow:0 10px 26px rgba(79,143,214,0.4);
+  }
+  .profile-call svg{ width:18px; height:18px; fill:#fff; }
+  .profile-sub-actions{ display:flex; gap:10px; }
+  .profile-sms{
+    flex:1; display:flex; align-items:center; justify-content:center; gap:8px;
+    border:1px solid rgba(255,255,255,0.25); color:#fff; font-size:13px; font-weight:700;
+    padding:14px; border-radius:12px;
+  }
+  .profile-sms svg{ width:14px; height:14px; fill:#fff; }
+  .profile-tel-num{ text-align:center; font-size:12px; color:rgba(255,255,255,0.4); margin-top:14px; letter-spacing:1px; }
+
+  /* ============ FAQ ============ */
+  .faq-item{
+    border-bottom:1px solid var(--line);
+  }
+  .faq-q{
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+    padding:20px 4px; font-size:14px; font-weight:700; cursor:pointer;
+  }
+  .faq-q .icon{
+    flex-shrink:0; width:22px; height:22px; border-radius:50%;
+    border:1.5px solid var(--blue); color:var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    font-size:14px; font-weight:700; transition:transform .25s ease;
+  }
+  .faq-item.open .faq-q .icon{ transform:rotate(45deg); }
+  .faq-a{
+    max-height:0; overflow:hidden; transition:max-height .3s ease;
+    font-size:13px; color:var(--gray); line-height:1.8;
+  }
+  .faq-item.open .faq-a{ max-height:200px; }
+  .faq-a-inner{ padding:0 4px 20px; }
+
+  /* ============ FOOTER ============ */
+  .footer{
+    background:var(--navy); color:rgba(255,255,255,0.45);
+    text-align:center; padding:48px 24px 110px; font-size:12px; line-height:2;
+  }
+  .footer-logo{ width:120px; margin:0 auto 18px; opacity:0.85; }
+  .footer b{ color:rgba(255,255,255,0.75); }
+
+  /* ============ STICKY CTA ============ */
+  .sticky-cta{
+    position:fixed; bottom:0; left:0; right:0; z-index:90;
+    background:rgba(10,24,48,0.96); backdrop-filter:blur(10px);
+    border-top:1px solid rgba(255,255,255,0.08);
+    padding:14px 20px; padding-bottom:max(14px, env(safe-area-inset-bottom));
+  }
+  .sticky-cta a{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    background:var(--blue); color:#fff; font-size:16px; font-weight:800;
+    padding:16px; border-radius:14px;
+    box-shadow:0 8px 24px rgba(79,143,214,0.4);
+    max-width:560px; margin:0 auto;
+  }
+  .sticky-cta svg{ width:18px; height:18px; fill:#fff; }
+  .sticky-cta .pulse{
+    width:8px; height:8px; border-radius:50%; background:#7CFC9C;
+    animation:pulse 1.6s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow:0 0 0 0 rgba(124,252,156,0.6); }
+    70%{ box-shadow:0 0 0 8px rgba(124,252,156,0); }
+    100%{ box-shadow:0 0 0 0 rgba(124,252,156,0); }
+  }
+
+  @media (min-width:600px){
+    .hero h1{ font-size:46px; }
+    .section-title{ font-size:32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar" id="topbar">
+  <img src="01/logo_W.png" alt="Pacific Links Korea" class="topbar-logo" />
+  <a href="tel:01062229369" class="topbar-call">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+    전화상담
+  </a>
+</div>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <img src="01/logo_W.png" alt="Pacific Links Korea" class="hero-logo" />
+  <div class="hero-eyebrow">Global Premium Golf Life Platform</div>
+  <h1>특별한 골프 라이프,<br><span>퍼시픽링크스</span>에서<br>시작하세요</h1>
+  <p>국내 2,700여개 · 전세계 1,000여개 제휴 골프장<br>프리미엄 멤버십 컨설팅</p>
+  <a href="tel:01062229369" class="btn-primary">
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+    지금 바로 전화 상담
+  </a>
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ============ INTRO / STATS ============ -->
+<section class="section dark">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow-tag">Pacific Links Korea</div>
+      <h2 class="section-title">전 세계가 인정한<br><b>글로벌 골프 네트워크</b></h2>
+      <p class="section-desc">하나의 멤버십으로 국내외 프리미엄 골프장을 자유롭게 이용하세요.</p>
+    </div>
+    <div class="stats-grid reveal">
+      <div class="stat-card">
+        <div class="stat-num">2,700+</div>
+        <div class="stat-label">국내 제휴 골프장</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">1,000+</div>
+        <div class="stat-label">전세계 제휴 골프장</div>
+      </div>
+    </div>
+    <div class="badge-row reveal">
+      <span class="badge">평생 그린피 50%</span>
+      <span class="badge">위임(무기명) 가능</span>
+      <span class="badge">주중·주말 이용</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MEMBERSHIP ============ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow-tag">Membership</div>
+      <h2 class="section-title">나에게 맞는<br><b>회원권</b>을 선택하세요</h2>
+      <p class="section-desc">탭하여 상세 안내를 확인하고, 전화로 바로 상담받으세요.</p>
+    </div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">반환형 멤버십</span>
+      <div class="mem-title">PLK 5년 반환형</div>
+      <div class="mem-desc">5년 이용 후 입회금 전액 반환 · 연 50회 / 올그린 60회 · 평생 그린피 50%</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025135057.png')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">평생 멤버십</span>
+      <div class="mem-title">라이프 50</div>
+      <div class="mem-desc">법인 / 개인 / 1+1 라이프 50 · 연 50회, 월 5회 이용 · 평생 이용 가능</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025151020.jpg')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">평생 멤버십</span>
+      <div class="mem-title">라이프 30</div>
+      <div class="mem-desc">법인 / 개인 라이프 30 · 연 30회, 월 3회 이용 · 평생 이용 가능</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025154593.jpg')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">법인 전용</span>
+      <div class="mem-title">법인 라이프 30 · 50</div>
+      <div class="mem-desc">법인 명의 멤버십 상세 안내 · 국내 2,700여개 / 전세계 1,000여개 이용</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025158013.jpg')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROFILE / CONTACT ============ -->
+<section class="section dark">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow-tag">Contact</div>
+      <h2 class="section-title">담당 지사장에게<br><b>직접 상담</b>받으세요</h2>
+      <p class="section-desc">멤버십 종류, 가격, 이용 방법까지 친절하게 안내해 드립니다.</p>
+    </div>
+
+    <div class="profile-card reveal">
+      <img src="01/Profile.png" alt="장소영 지사장" class="profile-img" />
+      <div class="profile-body">
+        <div class="profile-role">Pacific Links Korea</div>
+        <div class="profile-name">지사장 장소영</div>
+        <p class="profile-desc">
+          고객 한 분 한 분의 라이프스타일에 맞는<br>
+          최적의 골프 멤버십을 안내해 드립니다.<br>
+          궁금하신 사항은 언제든 편하게 연락주세요.
+        </p>
+        <div class="profile-actions">
+          <a href="tel:01062229369" class="profile-call">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+            전화 걸기
+          </a>
+          <div class="profile-sub-actions">
+            <a href="sms:01062229369" class="profile-sms">
+              <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+              문자 보내기
+            </a>
+          </div>
+        </div>
+        <div class="profile-tel-num">010-6222-9369</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section">
+  <div class="container">
+    <div class="reveal">
+      <div class="eyebrow-tag">FAQ</div>
+      <h2 class="section-title">자주 묻는 <b>질문</b></h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>회원권 가격은 얼마인가요?</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">회원권 종류 및 조건에 따라 가격이 상이합니다. 위 회원권 카드의 '자세히 보기'에서 상세 가격표를 확인하시거나, 전화 상담을 통해 정확한 안내를 받아보실 수 있습니다.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>해외 골프장도 이용할 수 있나요?</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">네, 가능합니다. 전세계 1,000여개 제휴 골프장에서 이용하실 수 있으며, 멤버십 종류에 따라 연간 이용 횟수가 다르니 상담 시 안내드립니다.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>회원권을 다른 사람에게 위임할 수 있나요?</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">네, 무기명 위임이 가능한 상품이 있습니다. 멤버십 종류별로 위임 가능 횟수가 다르므로 상세 내용은 상담을 통해 확인해 주세요.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>입회 후 양도·양수가 가능한가요?</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">입회일로부터 일정 기간 경과 후 양도·양수가 가능합니다. 멤버십별 조건이 다르니 상담 시 자세히 안내해 드립니다.</div></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          <span>상담은 어떻게 진행되나요?</span>
+          <span class="icon">+</span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">하단 '전화상담' 버튼을 누르시면 담당 지사장과 바로 통화 연결됩니다. 멤버십 종류, 비용, 이용 방법 등 궁금하신 점을 편하게 문의해 주세요.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <img src="01/logo_W.png" alt="Pacific Links Korea" class="footer-logo" />
+  <div>
+    <b>퍼시픽링크스 코리아</b><br>
+    서울특별시 강남구 역삼로 235, 한국빌딩<br>
+    TEL. 1522-1642 · www.pacificlinks.co.kr
+  </div>
+  <div style="margin-top:14px;">
+    담당 지사장 <b>장소영</b> · 010-6222-9369
+  </div>
+</footer>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-close" onclick="closeLightbox(event)">&times;</div>
+  <img id="lightbox-img" src="" alt="회원권 상세 정보" />
+  <div class="lightbox-hint">탭하여 닫기</div>
+</div>
+
+<!-- ============ STICKY CTA ============ -->
+<div class="sticky-cta">
+  <a href="tel:01062229369">
+    <span class="pulse"></span>
+    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+    지금 전화 상담하기
+  </a>
+</div>
+
+<script>
+  // 상단바 스크롤 효과
+  const topbar = document.getElementById('topbar');
+  window.addEventListener('scroll', () => {
+    topbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // 스크롤 reveal 애니메이션
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // 라이트박스
+  function openLightbox(src){
+    document.getElementById('lightbox-img').src = src;
+    document.getElementById('lightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e){
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // FAQ 아코디언
+  function toggleFaq(el){
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+    if(!wasOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
