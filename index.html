@@ -142,13 +142,32 @@
 
   /* ============ STATS ============ */
   .stats-grid{
-    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:36px;
+    display:flex; flex-direction:column; gap:12px; margin-bottom:36px;
+  }
+  .stat-group{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px;
+    background:rgba(79,143,214,0.06);
+    border:1px solid rgba(79,143,214,0.18);
+    border-radius:18px; padding:8px;
   }
   .stat-card{
-    text-align:center; padding:22px 8px;
+    text-align:center; padding:18px 8px;
     background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.08);
-    border-radius:14px;
+    border-radius:12px;
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), box-shadow .25s ease, background .25s ease;
+  }
+  .stat-card:active{
+    transform:scale(1.07) translateY(-6px);
+    box-shadow:0 14px 30px rgba(79,143,214,0.35);
+    background:rgba(255,255,255,0.1);
+  }
+  @media (hover:hover){
+    .stat-card:hover{
+      transform:scale(1.07) translateY(-6px);
+      box-shadow:0 14px 30px rgba(79,143,214,0.35);
+      background:rgba(255,255,255,0.1);
+    }
   }
   .stat-num{ font-size:26px; font-weight:900; color:var(--blue-light); letter-spacing:-1px; }
   .stat-label{ font-size:11px; color:rgba(255,255,255,0.55); margin-top:6px; letter-spacing:0.5px; }
@@ -348,21 +367,25 @@
       <p class="section-desc">하나의 멤버십으로 국내외 프리미엄 골프장을 자유롭게 이용하세요.</p>
     </div>
     <div class="stats-grid reveal">
-      <div class="stat-card">
-        <div class="stat-num">200+</div>
-        <div class="stat-label">국내 제휴 골프장</div>
+      <div class="stat-group">
+        <div class="stat-card">
+          <div class="stat-num">200+</div>
+          <div class="stat-label">국내 제휴 골프장</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">(원)80,000~</div>
+          <div class="stat-label">정산그린피 (국내)</div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-num">1,000+</div>
-        <div class="stat-label">전세계 제휴 골프장</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">(원)80,000~</div>
-        <div class="stat-label">정산그린피 (국내)</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-num">$60~</div>
-        <div class="stat-label">정산그린피 (해외)</div>
+      <div class="stat-group">
+        <div class="stat-card">
+          <div class="stat-num">1,000+</div>
+          <div class="stat-label">전세계 제휴 골프장</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">$60~</div>
+          <div class="stat-label">정산그린피 (해외)</div>
+        </div>
       </div>
     </div>
     <div class="badge-row reveal">
