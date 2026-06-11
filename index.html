@@ -142,10 +142,10 @@
 
   /* ============ STATS ============ */
   .stats-grid{
-    display:flex; gap:10px; margin-bottom:36px;
+    display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:36px;
   }
   .stat-card{
-    flex:1; text-align:center; padding:22px 8px;
+    text-align:center; padding:22px 8px;
     background:rgba(255,255,255,0.05);
     border:1px solid rgba(255,255,255,0.08);
     border-radius:14px;
@@ -349,12 +349,20 @@
     </div>
     <div class="stats-grid reveal">
       <div class="stat-card">
-        <div class="stat-num">2,700+</div>
+        <div class="stat-num">200+</div>
         <div class="stat-label">국내 제휴 골프장</div>
       </div>
       <div class="stat-card">
         <div class="stat-num">1,000+</div>
         <div class="stat-label">전세계 제휴 골프장</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">80,000원</div>
+        <div class="stat-label">정산그린피 (국내)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">$60</div>
+        <div class="stat-label">정산그린피 (해외)</div>
       </div>
     </div>
     <div class="badge-row reveal">
