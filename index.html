@@ -174,6 +174,21 @@
   }
   .mem-title{ font-size:21px; font-weight:900; letter-spacing:-0.5px; margin-bottom:8px; }
   .mem-desc{ font-size:13px; color:var(--gray); margin-bottom:18px; line-height:1.7; }
+
+  .category-heading{
+    font-size:12px; font-weight:800; letter-spacing:3px; text-transform:uppercase;
+    color:var(--blue); margin:36px 0 14px; padding-left:2px;
+  }
+  .category-heading:first-of-type{ margin-top:0; }
+
+  .mem-spec-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:10px 16px;
+    background:var(--bg); border-radius:10px; padding:16px;
+    margin:14px 0 16px;
+  }
+  .spec{ display:flex; flex-direction:column; gap:3px; }
+  .spec-label{ font-size:10px; color:var(--gray); letter-spacing:1px; }
+  .spec-val{ font-size:15px; font-weight:900; color:var(--ink); letter-spacing:-0.3px; }
   .mem-actions{ display:flex; gap:8px; }
   .btn-outline{
     flex:1; text-align:center; padding:13px; border-radius:10px;
@@ -359,23 +374,18 @@
       <p class="section-desc">탭하여 상세 안내를 확인하고, 전화로 바로 상담받으세요.</p>
     </div>
 
-    <div class="mem-card reveal">
-      <span class="mem-tag">반환형 멤버십</span>
-      <div class="mem-title">PLK 5년 반환형</div>
-      <div class="mem-desc">5년 이용 후 입회금 전액 반환 · 연 50회 / 올그린 60회 · 평생 그린피 50%</div>
-      <div class="mem-actions">
-        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025135057.png')">자세히 보기</button>
-        <a href="tel:01062229369" class="btn-fill">
-          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
-          상담문의
-        </a>
-      </div>
-    </div>
+    <div class="category-heading reveal">평생형 멤버십</div>
 
     <div class="mem-card reveal">
-      <span class="mem-tag">평생 멤버십</span>
+      <span class="mem-tag">개인</span>
       <div class="mem-title">라이프 50</div>
-      <div class="mem-desc">법인 / 개인 / 1+1 라이프 50 · 연 50회, 월 5회 이용 · 평생 이용 가능</div>
+      <div class="mem-spec-grid">
+        <div class="spec"><span class="spec-label">입회비</span><span class="spec-val">45,000,000원</span></div>
+        <div class="spec"><span class="spec-label">연회비</span><span class="spec-val">780,000원</span></div>
+        <div class="spec"><span class="spec-label">이용기간</span><span class="spec-val">평생</span></div>
+        <div class="spec"><span class="spec-label">연간 이용</span><span class="spec-val">50회 (월 5회)</span></div>
+      </div>
+      <div class="mem-desc">기명 1인 · 평생 그린피 50% · 국내·외 제휴 골프장 이용</div>
       <div class="mem-actions">
         <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025151020.jpg')">자세히 보기</button>
         <a href="tel:01062229369" class="btn-fill">
@@ -386,9 +396,53 @@
     </div>
 
     <div class="mem-card reveal">
-      <span class="mem-tag">평생 멤버십</span>
+      <span class="mem-tag">법인</span>
+      <div class="mem-title">라이프 50</div>
+      <div class="mem-spec-grid">
+        <div class="spec"><span class="spec-label">입회비</span><span class="spec-val">169,000,000원</span></div>
+        <div class="spec"><span class="spec-label">연회비</span><span class="spec-val">2,800,000원</span></div>
+        <div class="spec"><span class="spec-label">이용기간</span><span class="spec-val">평생</span></div>
+        <div class="spec"><span class="spec-label">연간 이용</span><span class="spec-val">50회 (월 5회)</span></div>
+      </div>
+      <div class="mem-desc">기명 1인 + 무기명 3인 · 평생 그린피 50% · 위임(무기명) 가능</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025151020.jpg')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">1+1</span>
+      <div class="mem-title">1+1 라이프 50</div>
+      <div class="mem-spec-grid">
+        <div class="spec"><span class="spec-label">입회비</span><span class="spec-val">85,000,000원</span></div>
+        <div class="spec"><span class="spec-label">연회비</span><span class="spec-val">1,500,000원</span></div>
+        <div class="spec"><span class="spec-label">이용기간</span><span class="spec-val">평생</span></div>
+        <div class="spec"><span class="spec-label">연간 이용</span><span class="spec-val">50회 (월 5회)</span></div>
+      </div>
+      <div class="mem-desc">기명 1인 + 무기명 1인 · 평생 그린피 50% · 합리적인 입회비</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025151020.jpg')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">개인</span>
       <div class="mem-title">라이프 30</div>
-      <div class="mem-desc">법인 / 개인 라이프 30 · 연 30회, 월 3회 이용 · 평생 이용 가능</div>
+      <div class="mem-spec-grid">
+        <div class="spec"><span class="spec-label">입회비</span><span class="spec-val">29,000,000원</span></div>
+        <div class="spec"><span class="spec-label">연회비</span><span class="spec-val">600,000원</span></div>
+        <div class="spec"><span class="spec-label">이용기간</span><span class="spec-val">평생</span></div>
+        <div class="spec"><span class="spec-label">연간 이용</span><span class="spec-val">30회 (월 3회)</span></div>
+      </div>
+      <div class="mem-desc">기명 1인 · 평생 그린피 50% · 부담 없는 입문형 멤버십</div>
       <div class="mem-actions">
         <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025154593.jpg')">자세히 보기</button>
         <a href="tel:01062229369" class="btn-fill">
@@ -399,11 +453,76 @@
     </div>
 
     <div class="mem-card reveal">
-      <span class="mem-tag">법인 전용</span>
+      <span class="mem-tag">법인</span>
+      <div class="mem-title">라이프 30</div>
+      <div class="mem-spec-grid">
+        <div class="spec"><span class="spec-label">입회비</span><span class="spec-val">119,000,000원</span></div>
+        <div class="spec"><span class="spec-label">연회비</span><span class="spec-val">2,200,000원</span></div>
+        <div class="spec"><span class="spec-label">이용기간</span><span class="spec-val">평생</span></div>
+        <div class="spec"><span class="spec-label">연간 이용</span><span class="spec-val">30회 (월 3회)</span></div>
+      </div>
+      <div class="mem-desc">기명 1인 + 무기명 3인 · 평생 그린피 50% · 위임(무기명) 가능</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025154593.jpg')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">법인 전용 · 글로벌</span>
       <div class="mem-title">법인 라이프 30 · 50</div>
-      <div class="mem-desc">법인 명의 멤버십 상세 안내 · 국내 2,700여개 / 전세계 1,000여개 이용</div>
+      <div class="mem-spec-grid">
+        <div class="spec"><span class="spec-label">이용처</span><span class="spec-val">국내 2,700+</span></div>
+        <div class="spec"><span class="spec-label">해외 이용처</span><span class="spec-val">전세계 1,000+</span></div>
+        <div class="spec"><span class="spec-label">위임</span><span class="spec-val">무기명 가능</span></div>
+        <div class="spec"><span class="spec-label">그린피</span><span class="spec-val">정산가 50%</span></div>
+      </div>
+      <div class="mem-desc">법인 명의 멤버십 글로벌 네트워크 상세 안내</div>
       <div class="mem-actions">
         <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025158013.jpg')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+
+    <div class="category-heading reveal">반환형 멤버십</div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">반환형</span>
+      <div class="mem-title">PLK 5년 반환형 50회</div>
+      <div class="mem-spec-grid">
+        <div class="spec"><span class="spec-label">입회금</span><span class="spec-val">300,000,000원</span></div>
+        <div class="spec"><span class="spec-label">연회비</span><span class="spec-val">4,000,000원</span></div>
+        <div class="spec"><span class="spec-label">이용기간</span><span class="spec-val">5년</span></div>
+        <div class="spec"><span class="spec-label">연간 이용</span><span class="spec-val">50회 (월 5회)</span></div>
+      </div>
+      <div class="mem-desc">5년 후 입회금 전액 반환 · 평생 그린피 50% · 국내·외 이용</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025135057.png')">자세히 보기</button>
+        <a href="tel:01062229369" class="btn-fill">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+          상담문의
+        </a>
+      </div>
+    </div>
+
+    <div class="mem-card reveal">
+      <span class="mem-tag">반환형 · 올그린</span>
+      <div class="mem-title">PLK 5년 반환형 올그린 60회</div>
+      <div class="mem-spec-grid">
+        <div class="spec"><span class="spec-label">입회금</span><span class="spec-val">600,000,000원</span></div>
+        <div class="spec"><span class="spec-label">연회비</span><span class="spec-val">8,000,000원</span></div>
+        <div class="spec"><span class="spec-label">이용기간</span><span class="spec-val">5년</span></div>
+        <div class="spec"><span class="spec-label">연간 이용</span><span class="spec-val">60회 (월 6회)</span></div>
+      </div>
+      <div class="mem-desc">5년 후 입회금 전액 반환 · 평생 그린피 100% · 국내·외 이용</div>
+      <div class="mem-actions">
+        <button class="btn-outline" onclick="openLightbox('01/KakaoTalk_20260610_025135057.png')">자세히 보기</button>
         <a href="tel:01062229369" class="btn-fill">
           <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
           상담문의
