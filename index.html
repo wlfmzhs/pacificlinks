@@ -95,6 +95,15 @@
     font-size:14px; color:rgba(255,255,255,0.6); font-weight:300;
     margin-bottom:42px; position:relative; z-index:1;
   }
+  .hero-keyword-wrap{
+    height:22px; margin-bottom:42px; position:relative; z-index:1;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .hero-keyword{
+    font-size:15px; font-weight:800; color:var(--blue-light);
+    letter-spacing:0.5px; transition:opacity .3s ease, transform .3s ease;
+  }
+  .hero-keyword.fade{ opacity:0; transform:translateY(4px); }
   .btn-primary{
     display:inline-flex; align-items:center; gap:10px;
     background:var(--blue); color:#fff;
@@ -460,23 +469,20 @@
   .feature-card .ft-desc{ font-size:12px; color:var(--gray); line-height:1.6; }
 
   /* ============ VIDEO ROLLING ============ */
-  .video-marquee-wrap{ overflow:hidden; margin:0 -24px; padding:4px 0; }
-  .video-marquee{
-    display:flex; gap:14px; width:max-content;
-    animation:video-scroll 32s linear infinite;
+  .video-marquee-wrap{
+    overflow-x:auto; margin:0 -24px; padding:4px 24px;
+    -webkit-overflow-scrolling:touch; scrollbar-width:none;
+    cursor:grab; user-select:none;
   }
-  .video-marquee:hover{ animation-play-state:paused; }
-  @keyframes video-scroll{
-    from{ transform:translateX(0); }
-    to{ transform:translateX(-50%); }
-  }
+  .video-marquee-wrap::-webkit-scrollbar{ display:none; }
+  .video-marquee{ display:flex; gap:14px; width:max-content; }
   .video-card{
     flex-shrink:0; width:220px; border-radius:14px; overflow:hidden;
     background:#fff; border:1px solid var(--line);
     box-shadow:0 4px 16px rgba(10,24,48,0.05);
   }
   .video-thumb{ position:relative; width:100%; aspect-ratio:16/9; background:#000; }
-  .video-thumb img{ width:100%; height:100%; object-fit:cover; }
+  .video-thumb img{ width:100%; height:100%; object-fit:cover; pointer-events:none; }
   .video-thumb .play{
     position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
   }
@@ -486,7 +492,10 @@
     box-shadow:0 4px 14px rgba(0,0,0,0.3);
   }
   .video-thumb .play svg{ width:16px; height:16px; fill:var(--navy); margin-left:2px; }
-  .video-title{ padding:12px 14px 14px; font-size:12.5px; font-weight:700; line-height:1.5; }
+  .video-title{
+    padding:12px 14px 14px; font-size:12.5px; font-weight:700; line-height:1.5;
+    background:#fff; color:var(--ink);
+  }
   .video-channel-link{
     display:inline-flex; align-items:center; gap:8px; margin-top:18px;
     font-size:13px; font-weight:700; color:var(--blue);
@@ -534,7 +543,9 @@
   <img src="01/logo_W.png" alt="Pacific Links Korea" class="hero-logo" />
   <div class="hero-eyebrow">Global Premium Golf Life Platform</div>
   <h1>특별한 골프 라이프,<br><span>퍼시픽링크스</span>에서<br>시작하세요</h1>
-  <p>국내 200여개 · 전세계 1,000여개 제휴 골프장<br>프리미엄 멤버십 컨설팅</p>
+  <div class="hero-keyword-wrap">
+    <span class="hero-keyword" id="heroKeyword">국내·해외 그린피 50%</span>
+  </div>
   <div class="hero-agent">
     <img src="01/Profile.png" alt="장소영 지사장" />
     <div class="hero-agent-text">
@@ -1127,6 +1138,21 @@
     }
   });
 
+  // 히어로 키워드 로테이터
+  const heroKeywords = ['국내·해외 그린피 50%', '부킹성공률 95%', '주중주말OK'];
+  const heroKeywordEl = document.getElementById('heroKeyword');
+  if(heroKeywordEl){
+    let kwIndex = 0;
+    setInterval(() => {
+      heroKeywordEl.classList.add('fade');
+      setTimeout(() => {
+        kwIndex = (kwIndex + 1) % heroKeywords.length;
+        heroKeywordEl.textContent = heroKeywords[kwIndex];
+        heroKeywordEl.classList.remove('fade');
+      }, 300);
+    }, 1500);
+  }
+
   // 유튜브 영상 롤링
   const plkVideos = [
     { id:'UqzbBgWy2ks', title:'2024년 퍼시픽링크스코리아 소개' },
@@ -1147,6 +1173,25 @@
         <div class="video-title">${v.title}</div>
       </a>`;
     marquee.innerHTML = plkVideos.map(cardHtml).join('') + plkVideos.map(cardHtml).join('');
+
+    const wrap = marquee.parentElement;
+    let autoplay = true;
+    let resumeTimer = null;
+    wrap.addEventListener('pointerdown', () => { autoplay = false; clearTimeout(resumeTimer); });
+    wrap.addEventListener('pointerup', () => { resumeTimer = setTimeout(() => autoplay = true, 2500); });
+    wrap.addEventListener('touchstart', () => { autoplay = false; clearTimeout(resumeTimer); }, { passive:true });
+    wrap.addEventListener('touchend', () => { resumeTimer = setTimeout(() => autoplay = true, 2500); }, { passive:true });
+
+    function autoScroll(){
+      if(autoplay){
+        wrap.scrollLeft += 0.6;
+        if(wrap.scrollLeft >= marquee.scrollWidth / 2){
+          wrap.scrollLeft -= marquee.scrollWidth / 2;
+        }
+      }
+      requestAnimationFrame(autoScroll);
+    }
+    requestAnimationFrame(autoScroll);
   }
 
   // 상단바 스크롤 효과
