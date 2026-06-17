@@ -385,9 +385,80 @@
     .hero h1{ font-size:46px; }
     .section-title{ font-size:32px; }
   }
+
+  /* ============ POPUP ============ */
+  .popup-overlay{
+    position:fixed; inset:0; z-index:2000;
+    background:rgba(5,12,24,0.72);
+    display:none; align-items:center; justify-content:center;
+    padding:24px; backdrop-filter:blur(2px);
+  }
+  .popup-overlay.open{ display:flex; }
+  .popup-box{
+    width:100%; max-width:340px;
+    background:linear-gradient(165deg, var(--navy2), var(--navy));
+    border-radius:20px; overflow:hidden; color:#fff;
+    box-shadow:0 24px 60px rgba(0,0,0,0.4);
+    position:relative;
+    animation:popup-in .35s cubic-bezier(.2,.8,.2,1);
+  }
+  @keyframes popup-in{
+    from{ opacity:0; transform:scale(0.92) translateY(10px); }
+    to{ opacity:1; transform:scale(1) translateY(0); }
+  }
+  .popup-close{
+    position:absolute; top:12px; right:12px; z-index:1;
+    width:32px; height:32px; border-radius:50%;
+    background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.3);
+    color:#fff; font-size:18px; font-weight:300;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .popup-img{ width:100%; aspect-ratio:4/3; object-fit:cover; object-position:center top; }
+  .popup-body{ padding:22px 22px 24px; }
+  .popup-role{ font-size:11px; letter-spacing:2px; color:var(--blue-light); font-weight:700; margin-bottom:6px; text-transform:uppercase; }
+  .popup-name{ font-size:20px; font-weight:900; margin-bottom:10px; letter-spacing:-0.5px; }
+  .popup-desc{ font-size:13px; color:rgba(255,255,255,0.65); line-height:1.7; margin-bottom:18px; }
+  .popup-cta{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    background:var(--blue); color:#fff; font-size:15px; font-weight:800;
+    padding:14px; border-radius:12px; margin-bottom:14px;
+    box-shadow:0 8px 22px rgba(79,143,214,0.4);
+  }
+  .popup-cta svg{ width:16px; height:16px; fill:#fff; }
+  .popup-actions{ display:flex; border-top:1px solid rgba(255,255,255,0.12); margin:0 -22px -24px; }
+  .popup-actions button{
+    flex:1; background:transparent; color:rgba(255,255,255,0.55);
+    font-size:12px; padding:14px 8px; font-weight:500;
+  }
+  .popup-actions button:first-child{ border-right:1px solid rgba(255,255,255,0.12); }
 </style>
 </head>
 <body>
+
+<!-- ============ POPUP ============ -->
+<div class="popup-overlay" id="popupOverlay">
+  <div class="popup-box">
+    <div class="popup-close" onclick="closePopup()">&times;</div>
+    <img src="01/Profile.png" alt="장소영 지사장" class="popup-img" />
+    <div class="popup-body">
+      <div class="popup-role">Pacific Links Korea</div>
+      <div class="popup-name">지사장 장소영</div>
+      <p class="popup-desc">
+        평생 그린피 50%, 국내 200여개 · 전세계 1,000여개<br>
+        제휴 골프장을 이용하는 프리미엄 멤버십.<br>
+        지금 상담받고 가장 좋은 조건을 안내받으세요.
+      </p>
+      <a href="tel:01062229369" class="popup-cta">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 011 1V20a1 1 0 01-1 1C10.61 21 3 13.39 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.46.57 3.58a1 1 0 01-.25 1.01l-2.2 2.2z"/></svg>
+        지금 바로 전화 상담
+      </a>
+      <div class="popup-actions">
+        <button onclick="closePopup(1)">오늘 하루 보지 않음</button>
+        <button onclick="closePopup()">닫기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ============ TOP BAR ============ -->
 <div class="topbar" id="topbar">
@@ -904,6 +975,30 @@
 </div>
 
 <script>
+  // 팝업
+  function getCookie(name){
+    const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return m ? m.pop() : '';
+  }
+  function setCookie(name, value, days){
+    const d = new Date();
+    d.setTime(d.getTime() + days*24*60*60*1000);
+    document.cookie = name + '=' + value + ';expires=' + d.toUTCString() + ';path=/';
+  }
+  function closePopup(hideDays){
+    document.getElementById('popupOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    if(hideDays) setCookie('NO_popup_main', 'Y', hideDays);
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    if(getCookie('NO_popup_main') !== 'Y'){
+      setTimeout(() => {
+        document.getElementById('popupOverlay').classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }, 600);
+    }
+  });
+
   // 상단바 스크롤 효과
   const topbar = document.getElementById('topbar');
   window.addEventListener('scroll', () => {
