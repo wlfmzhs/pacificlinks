@@ -660,21 +660,21 @@
     <div class="stats-grid reveal">
       <div class="stat-group">
         <div class="stat-card">
-          <div class="stat-num">240+</div>
+          <div class="stat-num" data-count="240" data-suffix="+">240+</div>
           <div class="stat-label">국내 제휴 골프장</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">50%</div>
+          <div class="stat-num" data-count="50" data-suffix="%">50%</div>
           <div class="stat-label">정산그린피 (국내)</div>
         </div>
       </div>
       <div class="stat-group">
         <div class="stat-card">
-          <div class="stat-num">1,000+</div>
+          <div class="stat-num" data-count="1000" data-suffix="+">1,000+</div>
           <div class="stat-label">전세계 제휴 골프장</div>
         </div>
         <div class="stat-card">
-          <div class="stat-num">50%</div>
+          <div class="stat-num" data-count="50" data-suffix="%">50%</div>
           <div class="stat-label">정산그린피 (해외)</div>
         </div>
       </div>
@@ -1509,6 +1509,50 @@
     });
   }, { threshold: 0.15 });
   revealEls.forEach(el => io.observe(el));
+
+  // 통계 숫자 카운트업(룰렛) 효과 — TL → TR → BL → BR, 2초 내 완료
+  (function(){
+    const grid = document.querySelector('.stats-grid');
+    if(!grid) return;
+    const nums = grid.querySelectorAll('.stat-num[data-count]');
+
+    // 초기값을 0으로 세팅 (나타나기 전)
+    nums.forEach(el => { el.textContent = '0' + (el.dataset.suffix || ''); });
+
+    // 매우 부드러운 감속 — easeOutExpo
+    const easeOutExpo = t => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t));
+
+    function animateNum(el, delay){
+      const target = parseInt(el.dataset.count, 10);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1100; // ms
+      let startTime = null;
+      function step(now){
+        if(startTime === null) startTime = now;
+        const elapsed = now - startTime;
+        const p = Math.min(elapsed / duration, 1);
+        const eased = easeOutExpo(p);
+        const val = Math.round(target * eased);
+        el.textContent = val.toLocaleString('en-US') + suffix;
+        if(p < 1) requestAnimationFrame(step);
+        else el.textContent = target.toLocaleString('en-US') + suffix;
+      }
+      setTimeout(() => requestAnimationFrame(step), delay);
+    }
+
+    let played = false;
+    const statIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting && !played){
+          played = true;
+          const stagger = 180; // 각 숫자 시작 간격
+          nums.forEach((el, i) => animateNum(el, i * stagger));
+          statIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    statIo.observe(grid);
+  })();
 
   // 라이트박스
   function openLightbox(src){
