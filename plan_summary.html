@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>퍼시픽링스 모바일 랜딩페이지 기획 요약 (1p)</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  :root{
+    --green:#1a5c38; --green-light:#2e7d52; --gold:#b8963e; --gold-light:#d4af5a;
+    --bg:#f7f5f0; --gray:#6b7280; --dark:#1a1a1a; --border:#e5e0d8;
+  }
+  html,body{ font-family:'Noto Sans KR', sans-serif; color:var(--dark); }
+  @page{ size:A4 portrait; margin:0; }
+  body{ background:#ddd; }
+
+  .sheet{
+    width:210mm; height:297mm;
+    margin:0 auto; background:white;
+    padding:11mm 13mm;
+    display:flex; flex-direction:column;
+    font-size:9px; line-height:1.45;
+  }
+
+  /* HEADER */
+  .head{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    border-bottom:3px solid var(--green); padding-bottom:8px; margin-bottom:10px;
+  }
+  .head-left .eyebrow{ font-size:9px; letter-spacing:2px; color:var(--gold); font-weight:700; text-transform:uppercase; margin-bottom:3px; }
+  .head-left h1{ font-size:21px; font-weight:900; color:var(--green); letter-spacing:-0.5px; }
+  .head-left h1 span{ color:var(--gold); }
+  .head-right{ text-align:right; font-size:9px; color:var(--gray); line-height:1.6; }
+  .head-right strong{ color:var(--dark); }
+
+  /* OVERVIEW STRIP */
+  .overview{ display:flex; gap:8px; margin-bottom:10px; }
+  .ov{
+    flex:1; min-width:0; background:var(--bg); border-left:3px solid var(--green);
+    border-radius:6px; padding:7px 10px;
+  }
+  .ov.gold{ border-left-color:var(--gold); }
+  .ov-label{ font-size:8px; letter-spacing:1px; text-transform:uppercase; color:var(--gray); margin-bottom:2px; }
+  .ov-value{ font-size:11px; font-weight:800; }
+
+  /* FLOW */
+  .flow{ display:flex; align-items:stretch; gap:5px; margin-bottom:10px; }
+  .flow-step{
+    flex:1; border-radius:6px; padding:7px 8px; font-size:9px; font-weight:700; text-align:center;
+    background:var(--bg); border:1px solid var(--border);
+  }
+  .flow-step .sub{ display:block; font-size:7.5px; font-weight:400; color:var(--gray); margin-top:1px; }
+  .flow-step.start{ background:var(--green); color:white; }
+  .flow-step.start .sub{ color:rgba(255,255,255,0.75); }
+  .flow-step.end{ background:var(--gold); color:white; font-weight:800; }
+  .flow-step.end .sub{ color:rgba(255,255,255,0.85); }
+  .flow-arrow{ display:flex; align-items:center; color:var(--gray); font-size:13px; font-weight:700; }
+
+  /* MAIN GRID — two columns */
+  .grid{ display:flex; gap:14px; flex:1; min-height:0; }
+  .col{ flex:1; display:flex; flex-direction:column; min-width:0; }
+
+  .blk{ margin-bottom:10px; }
+  .blk-title{
+    font-size:11px; font-weight:800; color:var(--green);
+    border-left:3px solid var(--green); padding-left:7px; margin-bottom:6px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .blk-title .badge{
+    font-size:7px; font-weight:700; letter-spacing:0.5px; color:white; background:var(--gold);
+    padding:1px 6px; border-radius:8px; text-transform:uppercase;
+  }
+  .blk-title.gold{ color:var(--gold); border-left-color:var(--gold); }
+
+  /* 7 sections compact list */
+  .sec-list{ list-style:none; }
+  .sec-list li{
+    display:flex; align-items:flex-start; gap:7px; padding:5px 0;
+    border-bottom:1px solid var(--border);
+  }
+  .sec-list li:last-child{ border-bottom:none; }
+  .sec-num{
+    flex-shrink:0; width:16px; height:16px; border-radius:4px; background:var(--green);
+    color:white; font-size:8px; font-weight:800; display:flex; align-items:center; justify-content:center;
+    margin-top:1px;
+  }
+  .sec-list li.key .sec-num{ background:var(--gold); }
+  .sec-name{ font-weight:700; font-size:9px; }
+  .sec-name .tag{ font-size:7px; font-weight:700; color:var(--gold); margin-left:4px; }
+  .sec-desc{ color:var(--gray); font-size:8px; line-height:1.4; }
+
+  /* checklist compact */
+  .chk-group{ margin-bottom:6px; }
+  .chk-group-title{ font-size:8.5px; font-weight:700; color:var(--dark); margin-bottom:3px; }
+  .chk-tags{ display:flex; flex-wrap:wrap; gap:4px; }
+  .chk-tag{
+    font-size:8px; padding:3px 8px; border-radius:10px; border:1px solid var(--border);
+    background:var(--bg); white-space:nowrap;
+  }
+  .chk-tag.req{ background:#fef2f2; color:#b91c1c; border-color:#fecaca; font-weight:600; }
+  .chk-tag.opt{ background:#f0fdf4; color:#15803d; border-color:#bbf7d0; }
+
+  .plain-list{ list-style:none; }
+  .plain-list li{
+    position:relative; padding:4px 0 4px 14px; font-size:9px; color:var(--dark); line-height:1.5;
+  }
+  .plain-list li::before{
+    content:''; position:absolute; left:1px; top:10px; width:5px; height:5px; border-radius:50%;
+    background:var(--gold);
+  }
+  .plain-list li b{ font-weight:700; }
+  .plain-list li span{ color:var(--gray); font-size:8px; }
+
+  /* timeline compact */
+  .tlc{ display:flex; flex-direction:column; gap:4px; }
+  .tlc-item{ display:flex; gap:7px; align-items:flex-start; }
+  .tlc-dot{
+    flex-shrink:0; width:14px; height:14px; border-radius:50%; background:var(--green);
+    color:white; font-size:6px; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:1px;
+  }
+  .tlc-item.late .tlc-dot{ background:var(--gold); }
+  .tlc-task{ font-weight:700; font-size:8.5px; }
+  .tlc-sub{ color:var(--gray); font-size:7.5px; }
+
+  .note{
+    background:linear-gradient(135deg,#fffbeb,#fef9ec); border:1px solid #fde68a; border-left:3px solid var(--gold);
+    border-radius:6px; padding:8px 10px; font-size:8px; color:#78350f; line-height:1.55;
+  }
+  .note strong{ color:#92400e; }
+
+  /* QUOTE / PAYMENT BANNER */
+  .quote-box{
+    margin-top:10px;
+    background:linear-gradient(135deg, var(--green), #0d3a22);
+    border-radius:10px; padding:14px 22px;
+    color:white; display:flex; align-items:center; justify-content:space-between; gap:18px;
+  }
+  .quote-left .qb-label{ font-size:9px; letter-spacing:2px; text-transform:uppercase; color:var(--gold-light); font-weight:700; margin-bottom:4px; }
+  .quote-left .qb-price{ font-size:24px; font-weight:900; letter-spacing:-0.5px; }
+  .quote-left .qb-price small{ font-size:11px; font-weight:500; color:rgba(255,255,255,0.7); margin-left:6px; }
+  .quote-left .qb-sub{ font-size:9px; color:rgba(255,255,255,0.7); margin-top:4px; }
+  .quote-right{ text-align:right; font-size:9px; line-height:1.6; }
+  .quote-right .qb-account{
+    display:inline-block; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.3);
+    border-radius:8px; padding:8px 14px; margin-bottom:6px;
+  }
+  .quote-right .qb-account .bank{ color:var(--gold-light); font-weight:700; font-size:10px; letter-spacing:0.5px; }
+  .quote-right .qb-account .num{ font-size:13px; font-weight:800; letter-spacing:0.5px; margin:2px 0; }
+  .quote-right .qb-account .holder{ color:rgba(255,255,255,0.75); font-size:8.5px; }
+  .quote-right .qb-note{ color:rgba(255,255,255,0.65); font-size:8px; }
+
+  .footer{
+    margin-top:10px; padding-top:8px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; font-size:8px; color:var(--gray);
+  }
+  .footer strong{ color:var(--green); }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- HEADER -->
+  <div class="head">
+    <div class="head-left">
+      <div class="eyebrow">Pacific Links · Landing Page Proposal · 1-Page Summary</div>
+      <h1>영업사원 전용 SNS 랜딩페이지 <span>기획 요약</span></h1>
+    </div>
+    <div class="head-right">
+      퍼시픽링스 골프 회원권 · <strong>박영철 본부장</strong><br>
+      작성일 2026년 6월 · www.pacificlinks.co.kr
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <div class="overview">
+    <div class="ov"><div class="ov-label">프로젝트 유형</div><div class="ov-value">SNS 광고 랜딩페이지</div></div>
+    <div class="ov"><div class="ov-label">대상 기기</div><div class="ov-value">모바일 퍼스트</div></div>
+    <div class="ov gold"><div class="ov-label">핵심 목표</div><div class="ov-value">박영철 본부장 상담 연결</div></div>
+  </div>
+
+  <!-- FLOW -->
+  <div class="flow">
+    <div class="flow-step start">SNS 광고 노출<span class="sub">인스타·페북·네이버</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">랜딩페이지 유입<span class="sub">모르는 사람</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">신뢰 형성<span class="sub">이미지·후기·소개</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step end">상담 연결<span class="sub">전화·카카오·문자</span></div>
+  </div>
+
+  <!-- MAIN 2-COLUMN -->
+  <div class="grid">
+
+    <!-- LEFT: 7 sections + note -->
+    <div class="col">
+      <div class="blk">
+        <div class="blk-title">페이지 구성 — 스크롤 순서대로 7섹션</div>
+        <ul class="sec-list">
+          <li><div class="sec-num">1</div><div><div class="sec-name">히어로 — 첫인상</div><div class="sec-desc">골프장 배경 + 강렬한 태그라인 + 즉각 상담 버튼</div></div></li>
+          <li><div class="sec-num">2</div><div><div class="sec-name">퍼시픽링스 소개 — 공신력</div><div class="sec-desc">설립연도·코스 수·회원 수 등 숫자로 신뢰 표현</div></div></li>
+          <li class="key"><div class="sec-num">3</div><div><div class="sec-name">셀럽·프로·행사 갤러리<span class="tag">★핵심 SNS 콘텐츠</span></div><div class="sec-desc">연예인·프로골퍼 사진, "광고에서 본 그 장소" 연계</div></div></li>
+          <li><div class="sec-num">4</div><div><div class="sec-name">회원권 안내</div><div class="sec-desc">종류별 혜택 카드 비교, 자세히 보기 → 상담 연결</div></div></li>
+          <li><div class="sec-num">5</div><div><div class="sec-name">고객 후기 / 신뢰 지표</div><div class="sec-desc">실 회원 후기 카드 + 누적 계약·지역 분포 숫자</div></div></li>
+          <li class="key"><div class="sec-num">6</div><div><div class="sec-name">박영철 본부장 프로필 + 상담<span class="tag">★핵심 전환</span></div><div class="sec-desc">프로필·경력 + 전화/카카오/문자 버튼, 하단 고정 바</div></div></li>
+          <li><div class="sec-num">7</div><div><div class="sec-name">FAQ — 이탈 방지</div><div class="sec-desc">자주 묻는 질문 5~6개 아코디언 형태</div></div></li>
+        </ul>
+      </div>
+
+      <div class="note">
+        <strong>💡 핵심 전략:</strong> 처음 보는 사람에게 <strong>즉각적인 공신력</strong>을 보여주는 것이 최우선. 스크롤하며 신뢰를 쌓아 하단 상담 버튼으로 자연스럽게 유도하고, 상담 버튼은 <strong>페이지 전체에서 항상 노출</strong>합니다.
+      </div>
+    </div>
+
+    <!-- RIGHT: checklist + tech + timeline -->
+    <div class="col">
+      <div class="blk">
+        <div class="blk-title gold">필요 자료</div>
+        <ul class="plain-list">
+          <li><b>카카오 채널 / 오픈채팅 링크</b></li>
+          <li><b>경력 소개 문구</b></li>
+          <li><b>공신력 있는 이미지</b> <span>— 공식 홈페이지·프로골퍼 광고 사진, 행사·라운딩 사진 등</span></li>
+          <li><b>회사 로고</b></li>
+          <li><b>실 회원 후기</b></li>
+        </ul>
+      </div>
+
+      <div class="blk" style="margin-bottom:6px;">
+        <div class="blk-title gold">예상 일정 — 2026년 6월 중 완료</div>
+        <div class="tlc">
+          <div class="tlc-item"><div class="tlc-dot">1</div><div><div class="tlc-task">디자인 초안 작업</div><div class="tlc-sub">히어로·소개·갤러리 구성, 모바일 레이아웃 확정</div></div></div>
+          <div class="tlc-item"><div class="tlc-dot">2</div><div><div class="tlc-task">전체 콘텐츠 삽입 + 상담 버튼 연동</div><div class="tlc-sub">회원권·후기·FAQ + 전화/카카오 버튼 연결</div></div></div>
+          <div class="tlc-item late"><div class="tlc-dot">3</div><div><div class="tlc-task">검토 및 피드백 반영</div><div class="tlc-sub">실제 모바일 테스트 후 수정사항 반영</div></div></div>
+          <div class="tlc-item late"><div class="tlc-dot">4</div><div><div class="tlc-task">배포 및 SNS 광고 연결</div><div class="tlc-sub">URL 발급, GA 설치, 광고 링크 세팅 — 6월 내 완료</div></div></div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>⏱ 빠른 시작 팁:</strong> <strong>필수</strong> 자료(연락처·프로필 사진·골프장 사진·회원권 종류)만 먼저 주시면 <strong>6월 중 완료</strong>를 목표로 빠르게 진행됩니다. 나머지는 이후 순차 추가됩니다.
+      </div>
+    </div>
+  </div>
+
+  <!-- QUOTE / PAYMENT -->
+  <div class="quote-box">
+    <div class="quote-left">
+      <div class="qb-label">제작 견적</div>
+      <div class="qb-price">500,000원<small>(VAT 별도)</small></div>
+      <div class="qb-sub">인도 후 2주 무상 수정 포함 · 세금계산서 발행 가능</div>
+    </div>
+    <div class="quote-right">
+      <div class="qb-account">
+        <div class="bank">카카오뱅크</div>
+        <div class="num">3333-01-4734859</div>
+        <div class="holder">예금주 성갑</div>
+      </div>
+      <div class="qb-note">계산서 필요 시 사업자 정보 전달 부탁드립니다</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>퍼시픽링스 모바일 랜딩페이지 프로젝트 · 1-Page Summary</div>
+    <div><strong>문의</strong> 박영철 본부장 · 전화 / 카카오톡 / 문자 상담 가능</div>
+  </div>
+
+</div>
+</body>
+</html>
